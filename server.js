@@ -36,7 +36,7 @@ client.on('ready', () => {
 // Objeto 'queue' donde guardamos todas las canciones que agregaremos
 const queue = new Map();
 
-let prefix = '#'
+let prefix = '*'
 
 client.on('message', async message => {
   if (message.author.bot) return;
@@ -66,7 +66,7 @@ client.on('message', async message => {
     
     var opts = {
       maxResults: 1, //Maximo de resultados a encontrar 
-      key: 'API-KEY', //Necesitas una CLAVE de la API de youtube.
+      key: 'AIzaSyCR_EuHWlkfM4-Vr_v0-SmWvPo9RvmaBRU', //Necesitas una CLAVE de la API de youtube.
       type: "video" // Que tipo de resultado a obtener.
     };
       
@@ -126,7 +126,8 @@ client.on('message', async message => {
 
       serverQueue.songs.push(song);
       console.log(serverQueue.songs);
-      return message.channel.send(`**${song.title}** ha sido añadido a la cola!, por: __${message.author.tag}__`);
+      return message.channel.send
+      (`**${song.title}** ha sido añadido a la cola!, por: __${message.author.tag}__`);
 
     }
 
@@ -222,9 +223,6 @@ client.on('message', async message => {
     }
 
 })
-
-client.login('TOKEN-BOT');
-
 // <-- FUNCION PLAY (REPRODUCIR): -->
 
 function play(guild, song) {
@@ -254,3 +252,5 @@ function play(guild, song) {
  dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
  
 }
+
+client.login('NjkzODU4NTE3MjQ0NzA2OTY3.Xpxx_g.FdGpr5PcuIStlt0md5E65RdmvdU');

@@ -66,7 +66,7 @@ client.on('message', async message => {
     
     var opts = {
       maxResults: 1, //Maximo de resultados a encontrar 
-      key: 'AIzaSyCR_EuHWlkfM4-Vr_v0-SmWvPo9RvmaBRU', //Necesitas una CLAVE de la API de youtube.
+      key: 'AIzaSyAU_5iRVbFoz7BWL1r5yxO6Q9vFrfnheu0', //Necesitas una CLAVE de la API de youtube.
       type: "video" // Que tipo de resultado a obtener.
     };
       
@@ -126,8 +126,7 @@ client.on('message', async message => {
 
       serverQueue.songs.push(song);
       console.log(serverQueue.songs);
-      return message.channel.send
-      (`**${song.title}** ha sido añadido a la cola!, por: __${message.author.tag}__`);
+      return message.channel.send(`**${song.title}** ha sido añadido a la cola!, por: __${message.author.tag}__`);
 
     }
 
@@ -223,34 +222,24 @@ client.on('message', async message => {
     }
 
 })
-// <-- FUNCION PLAY (REPRODUCIR): -->
 
 function play(guild, song) {
  const serverQueue = queue.get(guild.id);
- // verificamos que hay musica en nuestro objeto de lista
  if (!song) {
-  serverQueue.voiceChannel.leave(); // si no hay mas música en la cola, desconectamos nuestro bot
+  serverQueue.voiceChannel.leave(); 
   queue.delete(guild.id);
   return;
  }
-
- // <-- Reproducción usando playStream()  -->
-  
  const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
  .on('end', () => {
-   // Elimina la canción terminada de la cola.
    serverQueue.songs.shift();
 
-   // Llama a la función de reproducción nuevamente con la siguiente canción
    play(guild, serverQueue.songs[0]);
  })
  .on('error', error => {
   console.error(error);
  });
-
- // Configuramos el volumen de la reproducción de la canción
  dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
  
 }
-
-client.login('NjkzODU4NTE3MjQ0NzA2OTY3.Xpxx_g.FdGpr5PcuIStlt0md5E65RdmvdU');
+client.login(process.env.TOKEN);
